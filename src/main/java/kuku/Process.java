@@ -9,9 +9,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 public class Process{
 	private static boolean mazeWalkFromTopLeftToBottomRightResult = false;
+	private static Stack<Integer> combineStack = new Stack<Integer>();
 	
 	public static void main(String[] args){
 //		long[] longArray = new long[6];
@@ -45,6 +47,9 @@ public class Process{
 //		
 //		String resultString = shiftLetters(s,operations);
 		
+		int data[] = {1,2,3,4};
+		combination(data,4,0);
+		
 		//test case
 		//[3, 6, 2, 9, -1, 10]"Left"
 		//[1, 4, 100, 5]"Right"
@@ -73,8 +78,8 @@ public class Process{
 //		dataArray[15] = 16;
 //		dataArray[16] = 17;
 		
-		String result = findRightOrLeftBiggerFromBinaryTree(dataArray);
-		System.out.println("result = " + result);
+//		String result = findRightOrLeftBiggerFromBinaryTree(dataArray);
+//		System.out.println("result = " + result);
 	}
 	
 	//找出出現次數最少的數字，如果有多個數字，照ASC排序
@@ -327,6 +332,25 @@ public class Process{
         }
         
 		return String.join("",resultList);
+	}
+	
+	/**
+    * 排列組合
+    * @param data 原始集合
+    * @param target 選擇的數量
+    * @param current 目前的數量
+    */
+	private static void combination(int[] data,int target,int current){
+	   if(current == target){
+		   System.out.println(combineStack);
+		   return;
+       }
+       
+       for(int i=0;i<data.length;i++){
+    	   combineStack.add(data[i]);
+    	   combination(data,target,current + 1);
+    	   combineStack.pop();
+       }
 	}
 	
 	//二元樹，找出左邊或右邊的節點總合誰比較大。左邊總合大回"LEFT"；右邊則回"RIGHT"，如果沒有節點或兩邊相等的話回""
